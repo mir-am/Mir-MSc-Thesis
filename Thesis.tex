@@ -1,20 +1,25 @@
 \documentclass[10pt,a4paper]{report}
 
+% Packages
 \usepackage[top=35mm, bottom=30mm, left=25mm, right=35mm]{geometry}
 \usepackage{graphicx} % For inserting images into document
+%\usepackage[pagebackref=true]{hyperref}
 %\usepackage{subfig}
 \usepackage{xepersian}
 
 \settextfont[Scale=1.4]{B Lotus}
-\setlatintextfont[Scale=1]{Times New Roman}
-\setdigitfont[Scale=1.2]{B Lotus}
+%\setlatintextfont[Scale=1]{Times New Roman}
+%\setdigitfont[Scale=1.2]{B Lotus}
 
+% Definitions
 \makeatletter
 \bidi@patchcmd{\@Abjad}{آ}{الف}
 {\typeout{Succeeded in changing `آ` into `الف`}}
 {\typeout{Failed in changing `آ` into `الف`}}
 \makeatother
 \PersianAlphs
+
+\renewcommand{\bibname}{مراجع}
 
 \title{عنوان}
 \author{میر}
@@ -28,15 +33,28 @@
 % Besm page
 \include{besm}
 
+% Statement of originalty
+\include{orgstat}
+
+\include{taghdim}
+
+\pagenumbering{harfi}
 \tableofcontents
+\listoftables
+\listoffigures
 
-\chapter{کلیات}
-\section{مقدمه}
-ماشین بردار پشتیبان توسط \lr{Vapnik} در سال 1995 ارائه شد.
+\include{abstract_fa}
 
-\lr{\textbf{Support Vector Machine}}
-\lr{Support Vector Machine}
+% Chapter 1
+\include{ch1}
 
-\newpage
+% References
+\include{references}
+
+% English abstract
+\include{abstract_en}
+
+% English title page
+\include{en_title}
 
 \end{document}
