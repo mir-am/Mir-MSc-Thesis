@@ -4,13 +4,14 @@
 \usepackage[top=35mm, bottom=30mm, left=25mm, right=35mm]{geometry}
 \usepackage{graphicx} % For inserting images into document
 \usepackage[final]{pdfpages} % For inserting PDF file
+\usepackage{amsfonts}
 %\usepackage[pagebackref=true]{hyperref}
 %\usepackage{subfig}
 \usepackage{xepersian}
 
 \settextfont[Scale=1.4]{B Lotus}
-%\setlatintextfont[Scale=1]{Times New Roman}
-%\setdigitfont[Scale=1.2]{B Lotus}
+\setlatintextfont[Scale=1]{Times New Roman}
+\setdigitfont[Scale=1.2]{B Lotus}
 
 % Definitions
 \makeatletter
@@ -21,11 +22,17 @@
 \PersianAlphs
 
 \renewcommand{\bibname}{مراجع}
+\SepMark{-}
+% Folder that contains Figures
+\graphicspath{{Figs/}}
+%\everymath\expandafter{\the\everymath\PersianMathsDigits\SetMathsDigits}
+%\DefaultMathsDigits
 
-\title{عنوان}
-\author{میر}
+%\title{عنوان}
+%\author{میر}
 
 \begin{document}
+\baselineskip=0.9cm
 %\maketitle
 
 %Front page
@@ -51,6 +58,8 @@
 
 % Chapter 1
 \include{ch1}
+
+\include{ch2}
 
 % References
 \include{references}
