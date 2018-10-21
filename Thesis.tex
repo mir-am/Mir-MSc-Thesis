@@ -7,15 +7,20 @@
 \usepackage{amsfonts, amsmath}
 %\usepackage[nodisplayskipstretch]{setspace} % For vertical space between equations
 \usepackage[hidelinks]{hyperref}
-\usepackage{glossaries}
+\usepackage[xindy, acronym, nonumberlist=true]{glossaries}
 %\usepackage{subfig}
 \usepackage{xepersian}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Definitions
+
+% Xepersian settings
 \settextfont[Scale=1.4]{B Lotus}
 \setlatintextfont[Scale=1]{Times New Roman}
 \setdigitfont[Scale=1.2]{B Lotus}
 
-% Definitions
+
 \makeatletter
 \bidi@patchcmd{\@Abjad}{آ}{الف}
 {\typeout{Succeeded in changing `آ` into `الف`}}
@@ -23,6 +28,7 @@
 \makeatother
 \PersianAlphs
 
+\newcommand\notation[2]{#1\dotfill\lr{#2}\\}
 \renewcommand{\bibname}{مراجع}
 \SepMark{-}
 % Folder that contains Figures
@@ -30,8 +36,115 @@
 %\everymath\expandafter{\the\everymath\PersianMathsDigits\SetMathsDigits}
 %\DefaultMathsDigits
 
+% Glossaries settings
+
+% Styles
+% Persian to English style
+\newglossarystyle{myFaToEn}{%
+	\renewenvironment{theglossary}{}{}
+	\renewcommand*{\glsgroupskip}{\vskip 10mm}
+	\renewcommand*{\glsgroupheading}[1]{\subsection*{\glsgetgrouptitle{##1}}}
+	\renewcommand*{\glossentry}[2]{\noindent\glsentryname{##1}\dotfill\space \glsentrytext{##1}
+		
+	}
+}
+
+% English to Persian style
+\newglossarystyle{myEntoFa}{%
+	\renewenvironment{theglossary}{}{}
+	\renewcommand*{\glsgroupskip}{\vskip 10mm}
+	\renewcommand*{\glsgroupheading}[1]{\begin{LTR} \subsection*{\glsgetgrouptitle{##1}} \end{LTR}}
+	\renewcommand*{\glossentry}[2]{\noindent\glsentrytext{##1}\dotfill\space \glsentryname{##1}
+		
+	}
+}
+
+% Abbreviations style
+\newglossarystyle{myAbbrlist}{%
+	\renewenvironment{theglossary}{}{}
+	\renewcommand*{\glsgroupskip}{\vskip 10mm}
+	\renewcommand*{\glsgroupheading}[1]{\begin{LTR} \subsection*{\glsgetgrouptitle{##1}} \end{LTR}}
+	\renewcommand*{\glossentry}[2]{\noindent\Glsentrylong{##1}\dotfill\space \glsentrytext{##1}
+		
+	}
+	\renewcommand*{\acronymname}{فهرست اختصارات}
+}
+
+% Files
+\newglossary[glg]{english}{gls}{glo}{واژه‌نامه انگلیسی به فارسی}
+\newglossary[blg]{persian}{bls}{blo}{واژه‌نامه فارسی به انگلیسی}
+\makeglossaries
+\glsdisablehyper
+
+% Redefintion of commands
+\let\oldgls\gls
+\let\oldglspl\glspl
+
+\makeatletter
+
+\renewrobustcmd*{\gls}{\@ifstar\@msgls\@mgls}
+\newcommand*{\@mgls}[1] {\ifthenelse{\equal{\glsentrytype{#1}}{english}}{\oldgls{#1}\glsuseri{f-#1}}{\lr{\oldgls{#1}}}}
+\newcommand*{\@msgls}[1]{\ifthenelse{\equal{\glsentrytype{#1}}{english}}{\glstext{#1}\glsuseri{f-#1}}{\lr{\glsentryname{#1}}}}
+
+\renewrobustcmd*{\glspl}{\@ifstar\@msglspl\@mglspl}
+\newcommand*{\@mglspl}[1] {\ifthenelse{\equal{\glsentrytype{#1}}{english}}{\oldglspl{#1}\glsuseri{f-#1}}{\oldglspl{#1}}}
+\newcommand*{\@msglspl}[1]{\ifthenelse{\equal{\glsentrytype{#1}}{english}}{\glsplural{#1}\glsuseri{f-#1}}{\glsentryplural{#1}}}
+
+\makeatother
+
+\newcommand{\newword}[4]{
+	\newglossaryentry{#1}     {type={english},name={\lr{#2}},plural={#4},text={#3},description={}}
+	\newglossaryentry{f-#1} {type={persian},name={#3},text={\lr{#2}},description={}}
+}
+
+% Footnote for first occurence of a word
+\defglsentryfmt[english]{\glsgenentryfmt\ifglsused{\glslabel}{}{\LTRfootnote{\glsentryname{\glslabel}}}}
+\defglsentryfmt[acronym]{\glsentryname{\glslabel}\ifglsused{\glslabel}{}{\LTRfootnote{\glsentrydesc{\glslabel}}}}
+
+% Print glossaries and abbrevations
+\newcommand{\printabbreviation}{
+	\cleardoublepage
+	\phantomsection 
+	\addcontentsline{toc}{chapter}{فهرست اختصارات}
+	\setglossarystyle{myAbbrlist}
+	
+	\begin{LTR}
+		\Oldprintglossary[type=acronym]	
+	\end{LTR}
+	\clearpage
+	\baselineskip = \baselineskipVar
+}%
+\newcommand{\printacronyms}{\printabbreviation}
+
+\let\Oldprintglossary\printglossary
+\renewcommand{\printglossary}{
+	\clearpage
+	\phantomsection
+	\twocolumn{}
+	\addcontentsline{toc}{chapter}{واژه نامه انگلیسی به فارسی}
+	\setglossarystyle{myEntoFa}
+	\Oldprintglossary[type=english]
+	
+	\clearpage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{واژه نامه فارسی به انگلیسی}
+	\setglossarystyle{myFaToEn}
+	\Oldprintglossary[type=persian]
+	\onecolumn{}
+	\baselineskip = \baselineskipVar
+}%
+
+
+
+% end of glossaries settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %\title{عنوان}
 %\author{میر}
+
+% glossaries
+\input{mygloss}
 
 \begin{document}
 \baselineskip=0.9cm
@@ -56,6 +169,9 @@
 \listoftables
 \listoffigures
 
+% Notations
+\include{notation}
+
 \include{abstract_fa}
 
 % Chapter 1
@@ -65,6 +181,9 @@
 
 % References
 \include{references}
+
+% Glossaries
+%\printglossary
 
 % English abstract
 \include{abstract_en}
