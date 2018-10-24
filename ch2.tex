@@ -199,4 +199,46 @@ D(x)= sign(\sum\limits_{i \in S}{\alpha_{i}y_{i}}K(x_{i}, x) + b)
 \label{eq:21}
 \end{equation}
 
-مانند روش \lr{SVM}، برای حل کردن مسائل بهینه‌سازی (‏2 19)، از تابع لاگرانژ استفاده می‌کنیم.
+مانند روش \lr{SVM}، برای حل کردن مسائل بهینه‌سازی \ref{eq:19}، از تابع لاگرانژ استفاده می‌کنیم.
+\begin{equation}
+\begin{split}
+L(w_{1},b_{1},y_{2}, \alpha, \beta )= &\frac{1}{2}(A{{w}^{(1)}}+{{e}_{1}}{{b}^{(1)}})^{T}(A{{w}^{(1)}}+{{e}_{1}}{{b}^{(1)}}) + {{C}_{1}}e_{2}^{T}y_{2} \\
+&-\alpha^{T}(-(Bw^{(1)}+e_{2}b^{(1)})+y_{2} - e_{2}) - \beta^{T}y_{2}
+\end{split}
+\label{eq:22}
+\end{equation}
+
+در رابطه \ref{eq:22}، $\alpha=(\alpha_{1}, \alpha_{2}, \dots,\alpha_{m_{2}})^{T}$ و $\beta=(\beta_{1}, \beta_{2}, \dots,\beta_{m_{2}})^{T}$ بردارهای ضرایب لاگرانژ هستند.  با مشتق‌گیری از رابطه \ref{eq:22}، شرایط \lr{KKT}\footnote{\lr{Karush-Kuhn-Tucker}}  زیر برقرار می‌شود.
+\begin{align}
+\label{eq:23}
+\begin{split}
+A^{T}(A{{w}^{(1)}}+{{e}_{1}}{{b}^{(1)}}) + B^{T}\alpha = 0.
+\end{split} \\
+\label{eq:24}
+\begin{split}
+e_{1}^{T}(A{{w}^{(1)}}+{{e}_{1}}{{b}^{(1)}}) + e_{2}^{T}\alpha = 0.
+\end{split}\\
+\label{eq:25}
+\begin{split}
+C_{1}e_{2} - \alpha - \beta = 0.
+\end{split} 
+\end{align}
+با توجه اینکه $\beta \ge 0$، از رابطه \ref{eq:25} خواهیم داشت:
+\begin{equation}
+0 \le \alpha \le {C}_{1}
+\label{eq:26}
+\end{equation}
+
+سپس با ترکیب کردن \ref{eq:23} و \ref{eq:24}، رابطه زیر بدست می‌آید.
+\begin{equation}
+[A^{T}\ e^{T}_{1}][A\ e_{1}][w^{(1)}\ b^{(1)}]^{T} + [B^{T}\ e^{T}_{2}]\alpha = 0.
+\label{eq:27}
+\end{equation}
+
+با تعریف کردن ماتریس $H$ و $G$ به صورت $H=[A\text{ }e]$ و $G=[B\text{ }e]$، رابطه \ref{eq:27} به صورت زیر بازنویسی می‌شود.
+\begin{equation}
+\left[ \begin{aligned}
+& {{w}^{(1)}} \\
+& {{b}^{(1)}} \\
+\end{aligned} \right]= -{{({{H}^{T}}H)}^{-1}}{{G}^{T}}\alpha
+\end{equation}
