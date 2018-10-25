@@ -241,4 +241,155 @@ C_{1}e_{2} - \alpha - \beta = 0.
 & {{w}^{(1)}} \\
 & {{b}^{(1)}} \\
 \end{aligned} \right]= -{{({{H}^{T}}H)}^{-1}}{{G}^{T}}\alpha
+\label{eq:28}
 \end{equation}
+
+برای جلوگیری از شرایط ماتریس منفرد\footnote{\lr{Singular}}  در ماتریس $H^{T}H$، یک عدد ثابت بسیار کوچک  $\varepsilon > 0, \varepsilon I$ به عناصر قطر این ماتریس اضافه می‌شود. بنابراین دستگاه معادلات در رابطه \ref{eq:28} به صورت زیر تغییر می‌یابد.
+\begin{equation}
+\left[ \begin{aligned}
+& {{w}^{(1)}} \\
+& {{b}^{(1)}} \\
+\end{aligned}\right]= -{{({{H}^{T}}H + \varepsilon I)}^{-1}}{{G}^{T}}\alpha
+\label{eq:29}
+\end{equation}
+
+با توجه به شرایط \lr{KKT} و مسئله اصلی \ref{eq:19}، مسئله دوگان برای \ref{eq:19} به صورت زیر تعریف می‌گردد.
+\begin{equation}
+\begin{split}
+\mathop{{ min}}\limits_{\alpha} \qquad & \frac{1}{2}{{\alpha }^{T}}G{{({{H}^{T}}H)}^{-1}}{{G}^{T}}\alpha -e_{2}^{T}\alpha  \\
+\textrm{\lr{s.t. }} \qquad & 0{{e}_{2}}\le \alpha \le {{C}_{1}}{{e}_{2}}
+\end{split}
+\label{eq:30}
+\end{equation}
+
+مشابه راه حل کلاس مثبت، مسئله دوگان برای کلاس منفی \ref{eq:20} به صورت زیر تعریف می‌شود.
+\begin{equation}
+\begin{split}
+\mathop{{ min}}\limits_{\alpha} \qquad & \frac{1}{2}{{\alpha }^{T}}G{{({{H}^{T}}H)}^{-1}}{{G}^{T}}\alpha -e_{2}^{T}\alpha  \\
+\textrm{\lr{s.t. }} \qquad & 0{{e}_{2}}\le \alpha \le {{C}_{1}}{{e}_{2}}
+\end{split}
+\label{eq:31}
+\end{equation}
+
+بعد از حل کردن مسئله دوگان \ref{eq:31}، ابرصفحه کلاس منفی از طریق رابطه زیر بدست می‌آید.
+\begin{equation}
+\left[ \begin{aligned}
+& {{w}^{(2)}} \\
+& {{b}^{(2)}} \\
+\end{aligned}\right]= {{({{G}^{T}}G)}^{-1}}{{H}^{T}}\beta
+\label{eq:32}
+\end{equation}
+
+در نسخه خطی روش \lr{TSVM}، برای بدست آوردن مدل خروجی دو گام محاسباتی وجود دارد که عبارتند از:
+\begin{enumerate}
+	\item ضرایب لاگرانژ $\alpha$  و $\beta$  به ترتیب با حل کردن مسائل دوگان \ref{eq:31} و \ref{eq:32} بدست می‌آید. مرتبه زمانی این گام برابر با$\mathcal{O}({1/4{m}^{3}})$  می‌باشد.
+	\item	دو دستگاه معادلات خطی در روابط   \ref{eq:29} و \ref{eq:32} باید حل گردد. در این گام، معکوس ماتریس های  $H^{T}H$ و  $G^{T}G$ باید محاسبه شود. ابعاد این دو ماتریس برابر $(n + 1) \times (n + 1)$  است. بطوریکه   $n$ بسیار کوچکتر از تعداد نمونه‌های   کلاس مثبت و منفی می‌باشد.
+\end{enumerate}
+
+بعد از بدست آمدن دو ابرصفحه غیرموازی \ref{eq:18}، داده جدید با تابع تصمیم زیر به یکی از کلاس‌های مثبت یا منفی تعلق می‌گیرد.
+\begin{equation}
+\underset{j=1,2}{\mathop{arg\min }}\,\text{ } \left| {{x}^{T}}{{w}^{(j)}}+{{b}^{(j)}} \right|
+\label{eq:33}
+\end{equation}
+
+\subsection{ماشین بردار پشتیبان دو قلو غیر خطی}\label{sec:2:2:2}
+مسائل یادگیری ماشین در دنیای واقعی غالبا به صورت خطی جدا پذیر نیستند. روش \lr{TSVM} برای جدا سازی مسائل غیر خطی، نمونه‌ها را به فضای ویژگی با ابعاد بالاتر نگاشت می‌کند. بدین منظور دو ابرسطح\footnote{\lr{Hypersurface}}  به صورت زیر تعریف می‌شود.
+\begin{equation}
+K({{x}^{T}},~{{C}^{T}}){{u}^{\left( 1 \right)}}+{{b}^{\left( 1 \right)}}=0 \text{\lr{ and }} K({{x}^{T}},~{{C}^{T}}){{u}^{\left( 2 \right)}}+{{b}^{\left( 2 \right)}}=0
+\label{eq:34}
+\end{equation}
+
+در رابطه \ref{eq:34}، ماتریس $C$ برابر با  $C=~\left[ A \  B \right]^{T}$ است و $K$ تابع هسته دلخواه می‌باشد. در نسخه غیر خطی، مسائل بهینه‌سازی اصلی برای کلاس مثبت و منفی به ترتیب در روابط \ref{eq:35} و \ref{eq:36} تعریف شده است. 
+\begin{equation}
+\begin{split}
+\mathop{{ min}}\limits_{u^{(1)} ,b^{(1)}} \qquad & \frac{1}{2}{{\left\| K(A, C^{T}){{u}^{(1)}}+{{e}_{1}}{{b}^{(1)}} \right\|}^{2}}+{{C}_{1}}e_{2}^{T}y_{2} \\
+\textrm{\lr{s.t. }} \qquad & -(K(B, C^{T}){{u}^{(1)}}+{{e}_{2}}{{b}^{(1)}})+ y_{2} \ge {{e}_{2}}\text{ },y_{2}\ge 0
+\end{split}
+\label{eq:35}
+\end{equation}
+\begin{equation}
+\begin{split}
+\mathop{{ min}}\limits_{u^{(2)} ,b^{(2)}} \qquad & \frac{1}{2}{{\left\| K(B, C^{T}){{u}^{(2)}}+{{e}_{2}}{{b}^{(2)}} \right\|}^{2}}+{{C}_{2}}e_{1}^{T}y_{1} \\
+\textrm{\lr{s.t. }} \qquad & (K(A, C^{T}){{u}^{(2)}}+{{e}_{1}}{{b}^{(2)}})+ y_{1} \ge {{e}_{1}}\text{ },y_{1}\ge 0
+\end{split}
+\label{eq:36}
+\end{equation}
+
+تابع لاگرانژ برای مسئله اصلی در رابطه \ref{eq:35} به صورت زیر تعریف می‌شود.
+\begin{equation}
+\begin{split}
+L(u_{1},b_{1},y_{2}, \alpha, \beta )= & \frac{1}{2}{{\left\| K(A, C^{T}){{u}^{(1)}}+{{e}_{1}}{{b}^{(1)}} \right\|}^{2}} + {{C}_{1}}e_{2}^{T}y_{2} \\
+&-\alpha^{T}(-(K(B, C^{T})u^{(1)}+e_{2}b^{(1)})+y_{2} - e_{2}) - \beta^{T}y_{2}
+\end{split}
+\label{eq:37}
+\end{equation}
+
+مشابه نسخه خطی، شرایط \lr{KKT} برای رابطه \ref{eq:37} زیر تعریف شده است.
+\begin{align}
+\label{eq:38}
+\begin{split}
+K(A, C^{T})^{T}(K(A,C^{T}){{u}^{(1)}}+{{e}_{1}}{{b}^{(1)}}) + K(B, C^{T})^{T}\alpha = 0.
+\end{split} \\
+\label{eq:39}
+\begin{split}
+e_{1}^{T}(K(A,C^{T}){{u}^{(1)}}+{{e}_{1}}{{b}^{(1)}}) + e_{2}^{T}\alpha = 0.
+\end{split}\\
+\label{eq:40}
+\begin{split}
+C_{1}e_{2} - \alpha - \beta = 0.
+\end{split} 
+\end{align}
+
+با ترکیب کردن روابط \ref{eq:38} و \ref{eq:39}، رابطه زیر بدست می‌آید.
+\begin{equation}
+[K(A,C^{T})^{T}\ e^{T}_{1}][K(A,C^{T})\ e_{1}][u^{(1)}\ b^{(1)}]^{T} + [K(B, C^{T})\ e^{T}_{2}]\alpha = 0.
+\label{eq:41}
+\end{equation}
+
+با تعریف کردن ماتریس $S$ و $R$  به صورت $S=[K(A,C^{T})\text{ }e_{1}]$ و $R=[K(B,C^{T})\text{ }e_{2}]$ ، رابطه \ref{eq:41} به صورت بازنویسی می‌شود.
+\begin{equation}
+\left[ \begin{aligned}
+& {{u}^{(1)}} \\
+& {{b}^{(1)}} \\
+\end{aligned}\right]= -{{({{S}^{T}}S)}^{-1}}{{R}^{T}}\alpha
+\label{eq:42}
+\end{equation}
+
+با توجه به شرایط \lr{KKT} و مسئله اصلی \ref{eq:35}، مسئله دوگان برای بدست آوردن ضریب لاگرانژ $\alpha$ به صورت زیر تعریف می‌شود.
+\begin{equation}
+\begin{split}
+\mathop{{ min}}\limits_{\alpha} \qquad & \frac{1}{2}{{\alpha }^{T}}R{{({{S}^{T}}S)}^{-1}}{{R}^{T}}\alpha -e_{2}^{T}\alpha  \\
+\textrm{\lr{s.t. }} \qquad & 0{{e}_{2}}\le \alpha \le {{C}_{1}}{{e}_{2}}
+\end{split}
+\label{eq:43}
+\end{equation}
+
+به طرز مشابه‌ای، مسئله دوگان مسئله اصلی \ref{eq:36} در رابطه زیر تعریف شده است.
+\begin{equation}
+\begin{split}
+\mathop{{ min}}\limits_{\beta} \qquad & \frac{1}{2}{{\beta }^{T}}S{{({{R}^{T}}R)}^{-1}}{{S}^{T}}\beta -e_{1}^{T}\beta  \\
+\textrm{\lr{s.t. }} \qquad & 0{{e}_{1}}\le \beta \le {{C}_{2}}{{e}_{1}}
+\end{split}
+\label{eq:44}
+\end{equation}
+
+بعد از حل کردن مسئله دوگان و بدست آمدن ضرایب لاگرانژ $\beta$، ابرسطح کلاس منفی از طریق رابطه زیر بدست می‌آید.
+\begin{equation}
+\left[ \begin{aligned}
+& {{u}^{(2)}} \\
+& {{b}^{(2)}} \\
+\end{aligned}\right]= {{({{R}^{T}}R)}^{-1}}{{S}^{T}}\alpha
+\label{eq:45}
+\end{equation}
+
+بعد از حل کردن مسائل دوگان \ref{eq:43} و \ref{eq:44}، مشابه نسخه خطی یک نمونه جدید به کلاس مثبت یا منفی نسبت داده می‌شود. به عبارت دیگر، براساس فاصله عمودی نمونه جدید از دو ابرسطح، کلاس آن مشخص می‌گردد. 
+
+برخلاف نسخه خطی، حل کردن روابط \ref{eq:42} و \ref{eq:45} نیاز به محاسبه معکوس ماتریس در ابعاد  $m  \times m$  دارد. بطوریکه  $m$ برابر با کل نمونه‌های آموزشی است. زمانی که مجموعه داده‌ها بزرگ باشد، بدست آوردن مدل غیر خطی بسیار زمان‌بر می‌شود. تکنیک هسته‌ی مستطیلی\footnote{\lr{Rectangular kernel}} \cite{mang2001} برای کاهش ابعاد مسئله و بهبود محاسبه استفاده می‌شود.
+
+\subsection{پیشینه پژوهش در ماشین بردار پشتیبان دو قلو}\label{sec:2:2:3}
+روش \lr{TSVM} نسبت به روش \lr{SVM} دو نقطه قوت مهم دارد که عبارتند از:
+\begin{enumerate}
+	\item 	حساسیت کمتری به مجموعه داده‌های نامتوزان دارد و دقت آن روی این گونه داده‌ها بیشتر است.
+	\item دو مسئله دوگان کوچکتر برای بدست آوردن مدل خروجی حل می شود. به عبارتی هر مسئله دوگان فقط شامل نمونه‌های یک کلاس است. در حالی که در \lr{SVM} تمام نمونه‌ها در مسئله دوگان نقش دارند.
+\end{enumerate}
+
