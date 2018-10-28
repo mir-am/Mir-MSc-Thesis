@@ -237,19 +237,19 @@ C_{1}e_{2} - \alpha - \beta = 0.
 
 با تعریف کردن ماتریس $H$ و $G$ به صورت $H=[A\text{ }e]$ و $G=[B\text{ }e]$، رابطه \ref{eq:27} به صورت زیر بازنویسی می‌شود.
 \begin{equation}
-\left[ \begin{aligned}
-& {{w}^{(1)}} \\
-& {{b}^{(1)}} \\
-\end{aligned} \right]= -{{({{H}^{T}}H)}^{-1}}{{G}^{T}}\alpha
+\left[ \begin{matrix}
+{{w}^{(1)}} \\
+{{b}^{(1)}} \\
+\end{matrix} \right]= -{{({{H}^{T}}H)}^{-1}}{{G}^{T}}\alpha
 \label{eq:28}
 \end{equation}
 
 برای جلوگیری از شرایط ماتریس منفرد\footnote{\lr{Singular}}  در ماتریس $H^{T}H$، یک عدد ثابت بسیار کوچک  $\varepsilon > 0, \varepsilon I$ به عناصر قطر این ماتریس اضافه می‌شود. بنابراین دستگاه معادلات در رابطه \ref{eq:28} به صورت زیر تغییر می‌یابد.
 \begin{equation}
-\left[ \begin{aligned}
-& {{w}^{(1)}} \\
-& {{b}^{(1)}} \\
-\end{aligned}\right]= -{{({{H}^{T}}H + \varepsilon I)}^{-1}}{{G}^{T}}\alpha
+\left[ \begin{matrix}
+{{w}^{(1)}} \\
+{{b}^{(1)}} \\
+\end{matrix}\right]= -{{({{H}^{T}}H + \varepsilon I)}^{-1}}{{G}^{T}}\alpha
 \label{eq:29}
 \end{equation}
 
@@ -273,10 +273,10 @@ C_{1}e_{2} - \alpha - \beta = 0.
 
 بعد از حل کردن مسئله دوگان \ref{eq:31}، ابرصفحه کلاس منفی از طریق رابطه زیر بدست می‌آید.
 \begin{equation}
-\left[ \begin{aligned}
-& {{w}^{(2)}} \\
-& {{b}^{(2)}} \\
-\end{aligned}\right]= {{({{G}^{T}}G)}^{-1}}{{H}^{T}}\beta
+\left[ \begin{matrix}
+{{w}^{(2)}} \\
+{{b}^{(2)}} \\
+\end{matrix}\right]= {{({{G}^{T}}G)}^{-1}}{{H}^{T}}\beta
 \label{eq:32}
 \end{equation}
 
@@ -348,10 +348,10 @@ C_{1}e_{2} - \alpha - \beta = 0.
 
 با تعریف کردن ماتریس $S$ و $R$  به صورت $S=[K(A,C^{T})\text{ }e_{1}]$ و $R=[K(B,C^{T})\text{ }e_{2}]$ ، رابطه \ref{eq:41} به صورت بازنویسی می‌شود.
 \begin{equation}
-\left[ \begin{aligned}
-& {{u}^{(1)}} \\
-& {{b}^{(1)}} \\
-\end{aligned}\right]= -{{({{S}^{T}}S)}^{-1}}{{R}^{T}}\alpha
+\left[ \begin{matrix}
+{{u}^{(1)}} \\
+{{b}^{(1)}} \\
+\end{matrix}\right]= -{{({{S}^{T}}S)}^{-1}}{{R}^{T}}\alpha
 \label{eq:42}
 \end{equation}
 
@@ -375,10 +375,10 @@ C_{1}e_{2} - \alpha - \beta = 0.
 
 بعد از حل کردن مسئله دوگان و بدست آمدن ضرایب لاگرانژ $\beta$، ابرسطح کلاس منفی از طریق رابطه زیر بدست می‌آید.
 \begin{equation}
-\left[ \begin{aligned}
-& {{u}^{(2)}} \\
-& {{b}^{(2)}} \\
-\end{aligned}\right]= {{({{R}^{T}}R)}^{-1}}{{S}^{T}}\alpha
+\left[ \begin{matrix}
+{{u}^{(2)}} \\
+{{b}^{(2)}} \\
+\end{matrix}\right]= {{({{R}^{T}}R)}^{-1}}{{S}^{T}}\alpha
 \label{eq:45}
 \end{equation}
 
@@ -414,17 +414,17 @@ C_{1}e_{2} - \alpha - \beta = 0.
 
 مسائل اصلی \ref{eq:46} و \ref{eq:47}، یک تغییر مهم نسبت به مسائل اصلی در \lr{TSVM} دارد. قید مسئله بهینه‌سازی به یک معادله تبدیل شده است. به عبارت دیگر، ابرصفحه غیرموازی باید به فاصله 1 از کلاس مقابل دور شود. با جای‌گذاری قید در تابع هدف و گرفتن مشتق از ${{w}^{(1)}}$ و ${{b}^{(1)}}$، راه حل بدست می‌آید. در آخر مدل خروجی با حل کردن دو دستگاه معادلات خطی زیر ایجاد می‌شود.
 \begin{equation}
-\left[ \begin{aligned}
-& {{w}^{(1)}} \\ 
-& {{b}^{(1)}} \\ 
-\end{aligned} \right]=\text{ }-{{({{F}^{T}}F+\frac{1}{{{C}_{1}}}{{E}^{T}}E)}^{-1}}{{F}^{T}}e
+\left[ \begin{matrix}
+{{w}^{(1)}} \\
+{{b}^{(1)}} \\
+\end{matrix}\right]=\text{ }-{{({{F}^{T}}F+\frac{1}{{{C}_{1}}}{{E}^{T}}E)}^{-1}}{{F}^{T}}e
 \label{eq:48}
 \end{equation}
 \begin{equation}
-\left[ \begin{aligned}
-& {{w}^{(2)}} \\ 
-& {{b}^{(2)}} \\ 
-\end{aligned} \right]=\text{ }{{({{E}^{T}}E+\frac{1}{{{C}_{2}}}{{F}^{T}}F)}^{-1}}{{E}^{T}}e
+\left[ \begin{matrix}
+{{w}^{(2)}} \\
+{{b}^{(2)}} \\
+\end{matrix}\right]=\text{ }{{({{E}^{T}}E+\frac{1}{{{C}_{2}}}{{F}^{T}}F)}^{-1}}{{E}^{T}}e
 \label{eq:49}
 \end{equation}
 
@@ -467,17 +467,17 @@ C_{1}e_{2} - \alpha - \beta = 0.
 
 در روابط \ref{eq:52} و \ref{eq:53}، پارامتر  $C_3$ و  $C_4$ تعادل بین جمله رگولاریسون و ریسک تجربی است. نتایج در مقاله اصلی \cite{shao2011} نشان می‌دهد که تنظیم کردن این پارامتر می‌تواند دقت دسته‌بندی را افزایش دهد. بعد از بدست آوردن ضرایب لاگرانژ، دو ابرصفحه غیر موازی از طریق روابط زیر بدست می‌آید.
 \begin{equation}
-\left[ \begin{aligned}
-& {{w}^{(1)}} \\
-& {{b}^{(1)}} \\
-\end{aligned}\right]= -{{({{H}^{T}}H+C_{3}I)}^{-1}}{{G}^{T}}\alpha
+\left[ \begin{matrix}
+{{w}^{(1)}} \\
+{{b}^{(1)}} \\
+\end{matrix}\right]= -{{({{H}^{T}}H+C_{3}I)}^{-1}}{{G}^{T}}\alpha
 \label{eq:54}
 \end{equation}
 \begin{equation}
-\left[ \begin{aligned}
-& {{w}^{(2)}} \\
-& {{b}^{(2)}} \\
-\end{aligned}\right]= {{({{G}^{T}}G + C_{4}I)}^{-1}}{{H}^{T}}\beta
+\left[ \begin{matrix}
+{{w}^{(2)}} \\
+{{b}^{(2)}} \\
+\end{matrix}\right]= {{({{G}^{T}}G + C_{4}I)}^{-1}}{{H}^{T}}\beta
 \label{eq:55}
 \end{equation}
 
@@ -530,17 +530,17 @@ C_{1}e_{2} - \alpha - \beta = 0.
 
 در رابطه \ref{eq:58} و \ref{eq:59}،  $D=diag(d^{(1)}_{1},d^{(1)}_{2},\dots,d^{(1)}_{m_{1}})$ و  $Q=diag(d^{(2)}_{1},d^{(2)}_{2},\dots,d^{(2)}_{m_{2}})$ نشان دهنده ماتریس وزن کلاس مثبت و منفی است.  همچنین  $P=diag(f^{(1)}_{1},f^{(1)}_{2},\dots,f^{(1)}_{m_{1}})$  و $F=diag(f^{(2)}_{1},f^{(2)}_{2},\dots,f^{(2)}_{m_{2}})$ نشان دهنده نمونه‌های حاشیه‌ای کلاس مثبت و منفی است. بعد از حل کردن مسئله بهینه‌سازی دوگان، مدل خروجی با حل کردن روابط زیر بدست می‌آید.
 \begin{equation}
-\left[ \begin{aligned}
-& {{w}_{1}} \\
-& {{b}_{1}} \\
-\end{aligned}\right]= -{{({{H}^{T}}DH)}^{-1}}{{G}^{T}}F\alpha
+\left[ \begin{matrix}
+{{w}_{1}} \\
+{{b}_{1}} \\
+\end{matrix}\right]= -{{({{H}^{T}}DH)}^{-1}}{{G}^{T}}F\alpha
 \label{eq:60}
 \end{equation}
 \begin{equation}
-\left[ \begin{aligned}
-& {{w}_{2}} \\
-& {{b}_{2}} \\
-\end{aligned}\right]= {{({{G}^{T}}QG)}^{-1}}{{H}^{T}}P\beta
+\left[ \begin{matrix}
+{{w}_{2}} \\
+{{b}_{2}} \\
+\end{matrix}\right]= {{({{G}^{T}}QG)}^{-1}}{{H}^{T}}P\beta
 \label{eq:61}
 \end{equation}
 

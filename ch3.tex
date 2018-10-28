@@ -3,3 +3,202 @@
 \chapter{ماشین بردار پیشتیبان دو قلو کمترین مربعات مبتنی بر نزدیک‌ترین همسایه }\label{ch:3}
 \section{مقدمه}\label{sec:3:1}
 نقطه ضعف بزرگ روش \lr{TSVM} و \lr{LS-TSVM} این است که این روش‌ها اطلاعات شباهت  بین نمونه‌های آموزشی را در نظر نمی‌گیرند. به عبارت دیگر، به تمام نمونه‌های آموزشی اهمیت یکسانی داده می‌شود. بطوریکه نمونه‌های نویزی و پرت دقت مدل خروجی را روی داده‌های جدید کاهش می‌دهد. روش \lr{WLTSVM} این نقطه ضعف مهم را حل کرده است. این روش با ساخت گراف نزدیک‌ترین همسایه، اطلاعات درون و برون کلاسی را در تابع هدف مسئله بهینه‌سازی لحاظ کرده است. بطوریکه به هر یک از نمونه‌های آموزشی وزن نسبت می‌دهد و همچنین نمونه‌های حاشیه‌ای هر کلاس را استخراج می‌کند.
+
+روش \lr{WLTSVM} مانند \lr{TSVM} اصلی، دو مسئله بهینه‌سازی دوگان از نوع برنامه‌ریزی درجه دو حل می‌کند. بطوریکه آموزش روش \lr{WLTSVM} بر روی مجموعه داده‌های بزرگ کند و زمان‌بر خواهد بود. در این فصل، با گرفتن ایده از روش‌های \lr{LS-TSVM} و \lr{WLTSVM}، روش جدید ماشین بردار پشتیبان دو قلو کمترین مربعات مبتنی بر رویکرد نزدیک‌ترین همسایه (\lr{KNN-LSTSVM}) ارائه می‌شود \cite{mir2018}. روش پیشنهادی دارای مزایای زیر است:
+
+\begin{itemize}[label=$\bullet$]
+	\item روش پیشنهادی (\lr{KNN-LSTSVM})، مشابه روش \lr{WLTSVM} به طور کامل از اطلاعات شباهت بین نمونه‌ها استفاده می‌کند. بطوریکه با ساخت گراف نزدیک‌ترین همسایه اطلاعات درون و برون کلاسی را در مسئله بهینه‌سازی لحاظ می‌کند. به عبارت دیگر، به هر نمونه آموزشی بر اساس شمارش تعداد نزدیک‌ترین همسایه‌هایش وزن داده می‌شود. همچنین نمونه‌های حاشیه‌ای هر کلاس نیز مشخص می‌گردد.
+	\item روش پیشنهادی مشابه روش \lr{LS-TSVM}، دو دستگاه معادلات خطی برای بدست آوردن مدل خروجی حل می‌کند. این مزیت روش پیشنهادی را به یک الگوریتم ساده با پیچیدگی محاسباتی کمتر از \lr{WLTSVM} تبدیل می‌کند. به طور کلی، روش \lr{KNN-LSTSVM} نیازی به الگوریتم‌های بهینه‌سازی برای حل مسائل دوگان ندارد.
+	\item روش پیشنهادی برخلاف روش \lr{LS-TSVM} نسبت به نمونه‌های پرت حساسیت کمتری دارد. زیرا با استفاده از گراف نزدیک‌ترین همسایه به نمونه‌های پرت و نویزی ورن کمتری نسبت داده می‌شود. بنابراین مدل خروجی دقت بهتری خواهد داشت.
+\end{itemize}
+
+در ادامه این فصل، ابتدا نحوه ساخت ماتریس وزن‌ها از طریق گراف \lr{k} نزدیک‌ترین همسایه شرح داده می‌شود. سپس نسخه خطی و غیر خطی روش \lr{KNN-LSTSVM} توضیح داده شده است.
+
+\section{ساخت ماتریس وزن‌ها}\label{sec:3:2}
+ایده اصلی روش پیشنهادی (\lr{KNN-LSTSVM}) و \lr{WLTSVM} این است که به نمونه‌های با تراکم بیشتر وزن بیشتری بدهد و از کلاس مقابل نمونه‌های حاشیه‌ای را مشخص کند. به عبارت دیگر، ابرصفحه غیرموازی در روش \lr{KNN-LSTSVM} به نمونه‌های پرتراکم نزدیک‌تر است و از نمونه‌های حاشیه‌ای کلاس مقابل حداکثر فاصله را می‌گیرد. شکل \ref{fig:KNN-LSTSVM-LSTSVM} تفسیر هندسی روش \lr{LS-TSVM} و \lr{KNN-LSTSVM} را نشان می‌دهد.
+
+\begin{figure}[!b]
+	\centering
+	\includegraphics[scale=0.1]{KNN-LSTSVM-vs-LSTSVM}
+	\caption{ تفسیر هندسی روش \lr{LS-TSVM} و \lr{KNN-LSTSVM}}
+	\label{fig:KNN-LSTSVM-LSTSVM}
+\end{figure}
+
+همانطور که در شکل \ref{fig:KNN-LSTSVM-LSTSVM} مشخص شده است، ابرصفحه غیرموازی در \lr{LS-TSVM} به نمونه‌های پرت (کلاس دایره) بسیار نزدیک است. در حالی که روش پیشنهادی (\lr{KNN-LSTSVM}) از نمونه‌های پرت فاصله قابل توجه‌ای دارد و به نواحی پرتراکم نزدیک تر است. همچنین فاصله عمودی یک نمونه حاشیه‌ای از ابرصفحه هر دو روش در شکل ‏\ref{fig:KNN-LSTSVM-LSTSVM} محاسبه شده است. روش پیشنهادی از نمونه‌های حاشیه‌ای فاصله بیشتری دارد.
+
+ابتدا گراف \lr{k} نزدیک‌ترین همسایه جهت بدست آوردن ماتریس وزن‌ها به صورت زیر تعریف می‌شود.
+\begin{equation}\label{eq:63}
+W_{ij} =
+\begin{cases}
+1, & \textrm{\lr{if }} x_i \in Nea\left(x_j\right)\textrm{\lr{ or }} x_j \in Nea\left(x_i\right),  \\
+0, & \textrm{\lr{otherwise }}.
+\end{cases}
+\end{equation}
+
+در رابطه \ref{eq:63}، مجموعه  شامل $k$ نزدیک‌ترین همسایه نمونه  $x_i$ است که در رابطه زیر تعریف شده است.
+\begin{equation}\label{eq:64}
+N(x_j) = \{x^1_j, x^2_j, \dots , x^k_j\}
+\end{equation}
+
+گراف $W$ به تنهایی نمی‌تواند تفکیک پذیری در داده‌ها را پیدا کند. در عوض یک گراف درون کلاسی  $W_{w,ij}$ و برون کلاسی   $W_{b,ij}$ ایجاد می‌شود تا به ترتیب فشردگی درون کلاسی\footnote{\lr{Intra-class compactness}}  و جداپذیری برون کلاسی\footnote{\lr{Inter-class separability}}  مشخص شود. ماتریس وزن $W_{w}$ و  $W_{b}$ به ترتیب در روابط \ref{eq:65} و \ref{eq:66} تعریف شده است.
+\begin{equation}\label{eq:65}
+W_{w,ij} =
+\begin{cases}
+1, & \textrm{\lr{if }} x_i \in N_w(x_j) \textrm{\lr{ or }} x_j \in N_w(x_i)  \\
+0, & \textrm{\lr{otherwise }}.
+\end{cases}
+\end{equation}
+\begin{equation}\label{eq:66}
+W_{b,ij} =
+\begin{cases}
+1, & \textrm{\lr{if }} x_i \in N_b(x_j) \textrm{\lr{ or }} x_j \in N_b(x_i)  \\
+0, & \textrm{\lr{otherwise}}.
+\end{cases}
+\end{equation}
+
+در رابطه \ref{eq:65} و \ref{eq:66}، مجموعه $N_w(x_j)$ نشان‌دهنده $k$ نزدیک‌ترین همسایه نمونه $x_j$ از کلاس خودش و $N_b(x_j)$ مجموعه   شامل $k$ نزدیک‌ترین همسایه نمونه  $x_j$ از کلاس مقابل است. دو مجموعه $N_w(x_j)$ و $N_b(x_j)$ به ترتیب در روابط \ref{eq:67} و \ref{eq:68} تعریف شده‌اند.
+\begin{equation}\label{eq:67}
+N_w\left(x_i\right) = \{x^j_i \mid l(x^j_i) = l(x_i), 1 \leq j \leq k \}
+\end{equation}
+\begin{equation}\label{eq:68}
+N_b\left(x_i\right) = \{x^j_i \mid l(x^j_i) \neq l(x_i), 1 \leq j \leq k \}
+\end{equation}
+
+در رابطه \ref{eq:67} و \ref{eq:68}،  $l(x_i)$ نشان‌دهنده برچسب نمونه $x_i$ است. بدیهی است که  $N_w(x_i)\, \cap \, N_b(x_i) = \varnothing $ و  $N_w(x_i)\, \cup \, N_b(x_i) = N(x_i)$. فاصله بین هر کدام از نمونه‌های آموزشی توسط قاعده اقلیدس محاسبه می‌شود. به منظور پیدا کردن نمونه‌های حاشیه‌ای کلاس منفی، ماتریس وزن  $W_{b}$ به صورت زیر بازتعریف می‌شود.
+\begin{equation}\label{eq:69}
+f_{j} =
+\begin{cases}
+1, & \textrm{\lr{if }} \exists i, W_{b,ij} \neq 0  \\
+0, & \textrm{\lr{otherwise}}.
+\end{cases}
+\end{equation}   
+
+وزن هر کدام از نمونه‌های کلاس مثبت به صورت زیر محاسبه می‌شود.
+\begin{equation}\label{eq:70}
+{{d}_{j}}=~\underset{i=1}{\overset{{{m}_{1}}}{\mathop \sum }}\,{{W}_{w,~ij}}~,~j=1,2,\ldots ,~{{m}_{1}}
+\end{equation}
+
+در رابطه \ref{eq:70}، $d_j$  نشان‌دهنده وزن نمونه $x_j$ است. در اینجا تعداد همسایه‌ها با برچسب یکسان، وزن یک نمونه را مشخص می‌کند.
+
+\section{نسخه خطی}\label{sec:2:3}
+روش پیشنهادی مشابه روش \lr{WLTSVM}، دو ابرصفحه غیر موازی ایجاد می‌کند. بطوریکه هر کدام از این ابرصفحه‌ها به نمونه‌های پرتراکم نزدیک‌تر است و از نمونه‌های حاشیه‌ای کلاس مقابل حداکثر فاصله را دارد. با این حال روش پیشنهادی (\lr{KNN-LSTSVM})، مسائل اصلی روش \lr{WLTSVM} را تغییر می‌دهد. به این صورت که نامعادله در قید مسئله بهینه‌سازی به قید مساوی تغییر می‌یابد و همچنین متغیر لغزش به توان دو رسیده است.
+
+راه حل دو مسئله اصلی تغییر یافته نیاز به حل کردن دو دستگاه معادلات خطی دارد. در حالی که در روش \lr{WLTSVM}، دو مسئله دوگان باید حل شود. مسئله اصلی تغییر یافته کلاس مثبت به صورت زیر تعریف می‌شود.
+\begin{equation}\label{eq:71}
+\begin{split}
+\mathop{{ min}}\limits_{w_{(1)} ,b_{(1)}} \qquad & \frac{1}{2}{{(A{{w}^{\left( 1 \right)}}+e{{b}^{\left( 1 \right)}})}^{T}}D(A{{w}^{\left( 1 \right)}} +e{{b}^{\left( 1 \right)}}) +\frac{C}{2}{{y}^{T}}y \\
+\textrm{\lr{s.t. }} \qquad & -F(B{{w}^{\left( 1 \right)}}+e{{b}^{\left( 1 \right)}})+y=Fe
+\end{split}
+\end{equation} 
+
+ در رابطه \ref{eq:71}،  $D=diag(d_1,\dots,d_{m_{1}})$ نشان‌دهنده ماتریس وزن کلاس مثبت و $F=diag(f_1,\dots, f_{m_{2}})$ نشان دهنده نمونه‌های حاشیه‌ای کلاس منفی است. مقدار $f_j$ برابر با 0 یا 1 است و $d_i$ برزگتر یا مساوی با صفر است ($d_i \geq 0$).
+ 
+ مزیت مهم مسئله اصلی \ref{eq:71} این است که که می‌توان قید مساوی را در آن در جایگذاری کرد. بنابراین تابع لاگرانژ مسئله اصلی \ref{eq:71} به صورت تعریف می‌شود.
+\begin{equation}\label{eq:72}
+ \mathop{{ min}}\limits_{w_{(1)} ,b_{(1)}} L = \quad \frac{1}{2}{{\left\| D(A{{w}^{(1)}}+{{e}}{{b}^{(1)}}) \right\|}^{2}} +{\frac{C}{2}}{{\left\|F( B{{w}^{(1)}}+{{e}}{{b}^{(1)}})+F{e} \right\|}^{2}}
+\end{equation}
+
+با گرفتن مشتق‌گیری جزئی از رابطه \ref{eq:72} نسبت به  $w^{(1)}$ و $b^{(1)}$  خواهیم داشت:
+ \begin{align}
+ \label{eq:73}
+ \begin{split}
+ \frac{\partial L}{\partial w^{(1)}} &= {{A}^{T}}D(A{{w}^{\left(1\right)}}+e{{b}^{\left( 1 \right)}} ) + C{{B}^{T}}F(B{{w}^{\left( 1 \right)}}+e{{b}^{\left( 1 \right)}}+Fe)=0e
+ \end{split}\\
+ \label{eq:74}
+ \begin{split}
+ \frac{\partial L}{\partial b^{(1)}} &= {{e}^{T}}D(A{{w}^{\left( 1 \right)}}+e{{b}^{\left( 1 \right)}}) + C{{e}^{T}}F(B{{w}^{\left( 1 \right)}}+e{{b}^{\left( 1 \right)}}+e)=0
+ \end{split}
+ \end{align}
+ 
+ در ادامه با ترکیب کردن روابط \ref{eq:73} و \ref{eq:74} دستگاه معادلات خطی زیر بدست می‌آید.
+ \begin{equation}\label{eq:75}
+ \left[ \begin{matrix}
+ {{B}^{T}}FB\, & {{B}^{T}}Fe  \\
+ {{e}^{T}}FB\, & {{e}^{T}}Fe  \\
+ \end{matrix} \right]\left[ \begin{matrix}
+ {{w}^{\left( 1 \right)}}  \\
+ {{b}^{\left( 1 \right)}}  \\
+ \end{matrix} \right]+\frac{1}{C}\left[ \begin{matrix}
+ {{A}^{T}}DA\, & {{A}^{T}}De  \\
+ {{e}^{T}}DA\, & {{e}^{T}}De  \\
+ \end{matrix} \right]\left[ \begin{matrix}
+ {{w}^{\left( 1 \right)}}  \\
+ {{b}^{\left( 1 \right)}}  \\
+ \end{matrix} \right] +\left[ \begin{matrix}
+ {{B}^{T}}Fe  \\
+ {{e}^{T}}Fe  \\
+ \end{matrix} \right]=0e.
+ \end{equation}
+ \begin{equation}\label{eq:76}
+ \left[ \begin{matrix}
+ {{w}^{\left( 1 \right)}}  \\
+ {{b}^{\left( 1 \right)}}  \\
+ \end{matrix} \right]={{\left[ \begin{matrix}
+ 		{{B}^{T}}FB+~\frac{1}{C}{{A}^{T}}DA\, & {{B}^{T}}Fe+\frac{1}{C}{{A}^{T}}De\,  \\
+ 		{{e}^{T}}FB+~\frac{1}{C}{{e}^{T}}DA\, & {{e}^{T}}Fe+\frac{1}{C}{{e}^{T}}De\,  \\
+ 		\end{matrix} \right]}^{-1}} \times \left[ \begin{matrix}
+ -{{B}^{T}}Fe  \\
+ -{{e}^{T}}Fe  \\
+ \end{matrix} \right]
+ \end{equation}
+ \begin{equation}\label{eq:77}
+ \left[ \begin{matrix}
+ {{w}^{\left( 1 \right)}}  \\
+ {{b}^{\left( 1 \right)}}  \\
+ \end{matrix} \right]={{\left[ \begin{matrix}
+ 		\left[ \begin{matrix}
+ 		{{B}^{T}}  \\
+ 		{{e}^{T}}  \\
+ 		\end{matrix} \right]F & \left[ \begin{matrix}
+ 		B & e  \\
+ 		\end{matrix} \right]+~\frac{1}{C}\left[ \begin{matrix}
+ 		{{A}^{T}}  \\
+ 		{{e}^{T}}  \\
+ 		\end{matrix} \right]D\left[ \begin{matrix}
+ 		A & e  \\
+ 		\end{matrix} \right]  \\
+ 		\end{matrix} \right]}^{-1}} \times \left[ \begin{matrix}
+ \left[ \begin{matrix}
+ -{{B}^{T}}  \\
+ -{{e}^{T}}  \\
+ \end{matrix} \right] & Fe  \\
+ \end{matrix} \right]
+ \end{equation}
+ 
+با تعریف کردن ماتریس $H$ و $G$ به صورت $H=[A\text{ }e]$ و $G=[B\text{ }e]$، راه حل مسئله بهینه‌سازی \ref{eq:71} به صورت زیر تعریف می‌شود.
+\begin{equation}\label{eq:78}
+\left[ \begin{matrix}
+{{w}^{\left( 1 \right)}}  \\
+{{b}^{\left( 1 \right)}}  \\
+\end{matrix} \right] = -{{({{G}^{T}}FG+\frac{1}{C}{{H}^{T}}DH)}^{-1}}{{G}^{T}}Fe
+\end{equation}
+
+مسئله اصلی تغییر یافته کلاس منفی به صورت زیر تعریف می‌شود.
+\begin{equation}\label{eq:79}
+\begin{split}
+\mathop{{ min}}\limits_{w_{(2)} ,b_{(2)}} \qquad & \frac{1}{2}{{(B{{w}^{\left( 2 \right)}}+e{{b}^{\left( 2 \right)}})}^{T}}Q(B{{w}^{\left( 2 \right)}}+e{{b}^{\left( 2 \right)}})+\frac{C}{2}{{y}^{T}}y \\
+\textrm{\lr{s.t. }} \qquad & P(A{{w}^{\left( 2 \right)}}+e{{b}^{\left( 2\right)}})+y=Pe
+\end{split}
+\end{equation}
+
+در رابطه \ref{eq:79}،  $Q=diag(q_1,\dots,q_{m_{2}})$ نشان‌دهنده ماتریس وزن کلاس منفی و  $P=diag(p_1,\dots  ,p_{m_{1}})$ نشان‌دهنده نمونه‌های حاشیه‌ای کلاس مثبت است. مانند ماتریس $F$، مقدار $p_j$  برابر 0 یا 1 است.
+
+راه حل مسئله اصلی \ref{eq:79} همانند کلاس مثبت با جایگذاری قید مساوی، گرفتن مشتق‌گیری جزئی به صورت زیر تعریف می‌شود.
+\begin{equation}\label{eq:80}
+\left[ \begin{matrix}
+{{w}^{\left( 2 \right)}}  \\
+{{b}^{\left( 2 \right)}}  \\
+\end{matrix} \right] = {{({{H}^{T}}PH+\frac{1}{C}{{G}^{T}}QG)}^{-1}}{{H}^{T}}Pe
+\end{equation}
+
+راه حل‌های \ref{eq:78} و \ref{eq:80} شامل دو معکوس ماتریس با اندازه $(n+1)\times (n +1)$ است. بطوریکه $n$ بسیار کوچکتر از تعداد نمونه‌های کلاس مثبت و منفی می‌باشد. بنابراین سرعت یادگیری نسخه خطی روش \lr{KNN-LSTSVM} بسیار زیاد است.
+
+تابع تصمیم نسخه خطی به صورت زیر تعریف می‌شود.
+\begin{equation}\label{eq:81}
+D(x_i) =
+\begin{cases}
++1, & \textrm{\lr{if }} |{{x}^T}{{w}^{(1)}}+{{b}^{(1)}}|\, < \, |{{x}^T}{{w}^{(2)}}+{{b}^{(2)}}|  \\
+-1, & \textrm{\lr{otherwise }}.
+\end{cases}
+\end{equation}
+ 
