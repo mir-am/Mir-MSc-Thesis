@@ -4,7 +4,7 @@
 \usepackage[top=35mm, bottom=30mm, left=25mm, right=35mm]{geometry}
 \usepackage{graphicx} % For inserting images into document
 \usepackage[final]{pdfpages} % For inserting PDF file
-\usepackage{amsfonts, amsmath, amssymb}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
 %\usepackage[nodisplayskipstretch]{setspace} % For vertical space between equations
 \usepackage[hidelinks]{hyperref}
 \usepackage[xindy, acronym, nonumberlist=true]{glossaries}
@@ -42,8 +42,11 @@
 % Space between rows of tables
 \renewcommand{\arraystretch}{1.5}
 
-% Glossaries settings
+% Algorithms
+\theoremstyle{definition} 
+\newtheorem{algo}{الگوریتم}[chapter]
 
+% Glossaries settings
 % Styles
 % Persian to English style
 \newglossarystyle{myFaToEn}{%
@@ -186,6 +189,8 @@
 \include{ch2}
 
 \include{ch3}
+
+\include{ch4}
 
 % References
 \include{references}
