@@ -516,5 +516,54 @@ d(x) =
 \end{equation}
 
 در رابطه \ref{eq:4:47}، ماتریس  $Q \in \mathbb{R}^{n \times n}$ معین مثبت است.  برای مثال، این ماتریس می‌تواند با عبارت    $(F^{T}S){(R^{T}DR+ c_{2}I)^{-1}}{({S}^{T}F)}$ جایگزین شود.
-به منظور حل کردن مسئله دوگان محدب، الگوریتم‌های مختلفی طراحی و معرفی شده است. برخی از این الگوریتم‌ها شامل روش‌های نقطه داخلی\footnote{\lr{Interior-point}}   \cite{sra2012}، روش \lr{SOR}\footnote{\lr{Successive Overrelaxation}} \cite{mang1999} و  الگوریتم \lr{DCD}\footnote{\lr{Dual Coordinate Descent}} \cite{hsieh2008} هستند. 
+به منظور حل کردن مسئله دوگان محدب، الگوریتم‌های مختلفی طراحی و معرفی شده است. برخی از این الگوریتم‌ها شامل روش‌های نقطه داخلی\footnote{\lr{Interior-point}}   \cite{sra2012}، روش \lr{SOR}\footnote{\lr{Successive Overrelaxation}} \cite{mang1999} و  الگوریتم \lr{DCD}\footnote{\lr{Dual Coordinate Descent}} \cite{hsieh2008} هستند. در این پژوهش، الگوریتم \lr{clipDCD}\footnote{\lr{Clipping Dual Coordinate Descent}} \cite{peng2014} جهت بهبود سرعت آموزش روش \lr{RKNN-TSVM} بکار گرفته می‌شود. الگوریتم \lr{clipDCD } براساس روش گرادیان نزولی می‌باشد. این الگوریتم یک مسئله تک متغیره را حل می‌کند. بطوریکه یک متغیر براساس رویکرد بیشترین کاهش ممکن\footnote{\lr{Maximal possibility-decrease}} تغییر می‌کند.
 
+این الگوریتم برخلاف روش \lr{DCD}، هیچ تکرار داخلی و خارجی\footnote{\lr{Inner and outer iteration}}  ندارد. بطوریکه در هر تکرار فقط یک عنصر بردار $\alpha$  تغییر می‌کند. نحوه تغییر این بردار به این صورت $\alpha_{L} \rightarrow \alpha_{L} + \lambda$  نشان داده می‌شود ($L \in \{1,\dots,m\}$). تابع هدف در الگوریتم \lr{clipDCD} به صورت زیر تعریف می‌شود.  
+\begin{equation}\label{eq:4:48}
+f(\lambda)=f(0) + \frac{1}{2}\lambda^{2}Q_{LL} - \lambda(e_{L} - \alpha^{T}Q_{.,L}).
+\end{equation}
+
+در رابطه \ref{eq:4:48}، $Q_{.,L}$  نشان‌دهنده ستون $L$ام ماتریس است. با مشتق‌گیری نسبت به $\lambda$ رابطه زیر بدست می‌آید.
+\begin{equation}\label{eq:4:49}
+\frac{df(\lambda)}{d\lambda}=0 \Rightarrow \lambda = \frac{(e_{L} - \alpha^{T}Q_{.,L})}{Q_{LL}}
+\end{equation}
+
+بیشترین کاهش ممکن روی تابع هدف با انتخاب اندیس $L$ بدست می‌آید.
+\begin{equation}\label{eq:4:50}
+L = \mathop{arg\,max}\limits_{i \in S}\Big\{\frac{(e_{i} - \alpha^{T}Q_{.,i})^{2}}{Q_{ii}}{} \Big\},
+\end{equation}
+
+اندیس  $L$ از مجموعه $S$ انتخاب می شود. این مجموعه به صورت زیر تعریف می‌گردد.
+\begin{equation}\label{eq:4:51}
+S =\Big\{i:\alpha_{i} > 0 \textrm{\lr{ if }} \frac{e_{i} - \alpha^{T}Q_{.,i}}{Q_{ii}} < 0 \\ \textrm{\lr{ or }}\alpha_{i} < c \textrm{\lr{ if }} \frac{e_{i} - \alpha^{T}Q_{.,i}}{Q_{ii}} > 0 \Big\}.
+\end{equation}
+
+شرط توقف الگوریتم \lr{clipDCD} به صورت زیر تعریف می‌شود.
+\begin{equation}\label{eq:4:52}
+\frac{(e_{L} - \alpha^{T}Q_{.,L})^{2}}{Q_{LL}} < \epsilon, \quad \epsilon > 0
+\end{equation}
+
+در رابطه \ref{eq:4:52}،  $\epsilon$ نشان دهنده آستانه توقف که یک عدد کوچک مثبت  $\epsilon=10^{-5}$ است. اثبات همگرایی الگوریتم \lr{clipDCD} در مقاله اصلی \cite{peng2014} ذکر شده است. 
+
+\begin{algo}
+	الگوریتم بهینه‌سازی \lr{clipDCD}
+
+ابتدا فرض گرفته می‌شود که ماتریس $Q$  و پارامتر $c$  را در اختیار داریم.
+
+\begin{enumerate}
+	\item 	مقادیر اولیه بردار $\alpha$  برابر با $\alpha=0$  در نظر گرفته می‌شود.
+	\item 	اندیس $L$  با استفاده از رابطه \ref{eq:4:50} و \ref{eq:4:51} بدست می‌آید. سپس $\lambda$  از طریق رابطه \ref{eq:4:49} محاسبه می‌شود.
+	\item 	بردار $\alpha_{L}$  به صورت $\alpha^{new}_{L} \leftarrow \alpha_{L} + \mathop{max}\{0, \mathop{min}\{\lambda,c\}\}$  تغییر می‌کند.
+	\item 	در صورتی که شرط توقف یعنی $\frac{(e_{L} - \alpha^{T}Q_{.,L})^{2}}{Q_{LL}} < \epsilon$  برقرار باشد، الگوریتم خاتمه می‌یابد. در غیر این صورت الگوریتم از گام 2 ادامه می‌یابد.
+\end{enumerate}
+\end{algo}
+
+\section{جمع‌بندی}\label{sec:4:8}
+در این فصل، روش ماشین بردار پشتیبان دو قلو مبتنی بر رگولارسیون و نزدیک‌ترین همسایه (\lr{RKNN-TSVM}) ارائه شد. روش پیشنهادی سه مزیت نسبت به روش \lr{WLTSVM} دارد:
+\begin{enumerate}
+	\item 	شیوه وزن‌دهی به نمونه‌ها براساس فاصله نزدیک‌ترین همسایه‌هایشان می‌باشد. بطوریکه ابرصفحه غیر موازی به نمونه‌های پرتراکم نزدیک‌تر می‌شود. در نهایت مدل خروجی مقاومت بهتری نسبت به نمونه‌های نویزی و پرت دارد.
+	\item 	روش  \lr{RKNN-TSVM} ریسک ساختاری را کمینه می‌کند. دو پارامتر جدید به مسائل بهینه‌سازی اضافه شده است. این پارامترها تعادل بین ریسک تجربی و جمله رگولارسیون را کنترل می‌کنند. بطوریکه دقت و تعمیم‌پذیری مدل خروجی افرایش می‌یابد.
+	\item روش پیشنهادی از الگوریتم \lr{LDMDBA} برای ساخت گراف نزدیک‌ترین همسایه استفاده می‌کند. نه تنها این الگوریتم سرعت آموزش روش پیشنهادی را به طور قابل توجه‌ای افزایش می‌دهد بلکه دقت مدل خروجی را هم بهبود داده است.
+\end{enumerate}
+
+در بخش روش \lr{RKNN-TSVM} مورد ارزیابی و بررسی قرار گرفته است.
