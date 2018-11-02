@@ -8,7 +8,8 @@
 %\usepackage[nodisplayskipstretch]{setspace} % For vertical space between equations
 \usepackage[hidelinks]{hyperref}
 \usepackage[xindy, acronym, nonumberlist=true]{glossaries}
-%\usepackage{subfig}
+\usepackage{subfig} % For side-by-side figures
+\usepackage{booktabs} % For tables
 \usepackage{enumitem}
 \usepackage{xepersian}
 
@@ -19,7 +20,7 @@
 % Xepersian settings
 \settextfont[Scale=1.4]{B Lotus}
 \setlatintextfont[Scale=1]{Times New Roman}
-\setdigitfont[Scale=1.2]{B Lotus}
+\setdigitfont[Scale=1.2]{XB Niloofar}
 
 
 \makeatletter
@@ -41,6 +42,7 @@
 
 % Space between rows of tables
 \renewcommand{\arraystretch}{1.5}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
 % Algorithms
 \theoremstyle{definition} 
