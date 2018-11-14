@@ -134,8 +134,8 @@
 }%
 \newcommand{\printacronyms}{\printabbreviation}
 
-\let\Oldprintglossary\printglossary
-\renewcommand{\printglossary}{
+\let\Oldprintglossary\printglossaries
+\renewcommand{\printglossaries}{
 	\clearpage
 	\phantomsection
 	\twocolumn{}
@@ -209,7 +209,7 @@
 \include{references}
 
 % Glossaries
-%\printglossary
+\printglossaries
 
 % English abstract
 \include{abstract_en}
