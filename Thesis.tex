@@ -36,8 +36,10 @@
 \newcommand\notation[2]{#1\dotfill\lr{#2}\\}
 \renewcommand{\bibname}{مراجع}
 \SepMark{-}
+
 % Folder that contains Figures
 \graphicspath{{figs/}}
+
 %\everymath\expandafter{\the\everymath\PersianMathsDigits\SetMathsDigits}
 %\DefaultMathsDigits
 \setcounter{secnumdepth}{3}
@@ -72,8 +74,8 @@
 	\renewenvironment{theglossary}{}{}
 	\renewcommand*{\glsgroupskip}{\vskip 10mm}
 	\renewcommand*{\glsgroupheading}[1]{\begin{LTR} \subsection*{\glsgetgrouptitle{##1}} \end{LTR}}
+
 	\renewcommand*{\glossentry}[2]{\noindent\glsentrytext{##1}\dotfill\space \glsentryname{##1}
-		
 	}
 }
 
@@ -122,36 +124,39 @@
 % Print glossaries and abbrevations
 \newcommand{\printabbreviation}{
 	\cleardoublepage
-	\phantomsection 
+	\phantomsection
+	\baselineskip=.75cm
+	
 	\addcontentsline{toc}{chapter}{فهرست اختصارات}
 	\setglossarystyle{myAbbrlist}
-	
 	\begin{LTR}
 		\Oldprintglossary[type=acronym]	
 	\end{LTR}
 	\clearpage
-	\baselineskip = \baselineskipVar
 }%
+
 \newcommand{\printacronyms}{\printabbreviation}
 
-\let\Oldprintglossary\printglossaries
-\renewcommand{\printglossaries}{
+\let\Oldprintglossary\printglossary
+\renewcommand{\printglossary}{
+	\let\appendix\relax
+
 	\clearpage
 	\phantomsection
 	\twocolumn{}
+	
 	\addcontentsline{toc}{chapter}{واژه نامه انگلیسی به فارسی}
 	\setglossarystyle{myEntoFa}
 	\Oldprintglossary[type=english]
 	
 	\clearpage
 	\phantomsection
+
 	\addcontentsline{toc}{chapter}{واژه نامه فارسی به انگلیسی}
 	\setglossarystyle{myFaToEn}
 	\Oldprintglossary[type=persian]
 	\onecolumn{}
-	\baselineskip = \baselineskipVar
 }%
-
 
 
 % end of glossaries settings
@@ -209,7 +214,8 @@
 \include{references}
 
 % Glossaries
-\printglossaries
+\printglossary
+\printabbreviation
 
 % English abstract
 \include{abstract_en}
