@@ -73,21 +73,22 @@
 \newglossarystyle{myEntoFa}{%
 	\renewenvironment{theglossary}{}{}
 	\renewcommand*{\glsgroupskip}{\vskip 10mm}
-	\renewcommand*{\glsgroupheading}[1]{\begin{LTR} \subsection*{\glsgetgrouptitle{##1}} \end{LTR}}
+	\renewcommand*{\glsgroupheading}[1]{\begin{latin} \subsection*{\glsgetgrouptitle{##1}} \end{latin}}
 
-	\renewcommand*{\glossentry}[2]{\noindent\glsentrytext{##1}\dotfill\space \glsentryname{##1}
+	\renewcommand*{\glossentry}[2]{\noindent\glsentrytext{##1}\dotfill\space \glsentryname{##1} \\
 	}
 }
 
 % Abbreviations style
 \newglossarystyle{myAbbrlist}{%
+	
 	\renewenvironment{theglossary}{}{}
 	\renewcommand*{\glsgroupskip}{\vskip 10mm}
-	\renewcommand*{\glsgroupheading}[1]{\begin{LTR} \subsection*{\glsgetgrouptitle{##1}} \end{LTR}}
-	\renewcommand*{\glossentry}[2]{\noindent\Glsentrylong{##1}\dotfill\space \glsentrytext{##1}
-		
-	}
-	\renewcommand*{\acronymname}{فهرست اختصارات}
+	\renewcommand*{\glsgroupheading}[1]{\begin{latin} \subsection*{\glsgetgrouptitle{##1}} \end{latin}}
+
+	\renewcommand*{\glossentry}[2]{\begin{latin} \noindent\glsentrytext{##1}\dotfill\space \Glsentrylong{##1} \end{latin}}
+
+	\renewcommand*{\acronymname}{\rl{فهرست اختصارات}}
 }
 
 % Files
