@@ -61,6 +61,17 @@
 % Algorithms and its TOC
 \renewcommand{\algorithmcfname}{الگوریتم}
 \renewcommand{\listalgorithmcfname}{فهرست الگوریتم‌ها}
+
+% For writing steps in the algorithm enviroment.
+\newenvironment{steps}
+{
+\begin{minipage}{.92\linewidth}
+\baselineskip=0.9cm
+}{
+\end{minipage}
+}
+
+
 \theoremstyle{definition} 
 \newtheorem{algo}{الگوریتم}[chapter]
 
