@@ -6,15 +6,19 @@
 \usepackage[final]{pdfpages} % For inserting PDF file
 \usepackage{amsfonts, amsmath, amssymb, amsthm}
 %\usepackage[nodisplayskipstretch]{setspace} % For vertical space between equations
-\usepackage[hidelinks]{hyperref}
 \usepackage[xindy, acronym, nonumberlist=true]{glossaries}
 \usepackage{subfig} % For side-by-side figures
 \usepackage{booktabs} % For tables
 \usepackage{threeparttable}
 \usepackage{rotating}
+\usepackage{footnote} % To insert a footnote in the table enviroment
 \usepackage{enumitem}
 \usepackage[font={small}]{caption}
 \usepackage{fancyhdr}
+%\usepackage[subfigure]{tocloft}
+\usepackage[hidelinks]{hyperref}
+\usepackage[ruled, algochapter]{algorithm2e}
+%\usepackage{etoolbox}
 \usepackage{xepersian}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -28,7 +32,7 @@
 
 
 \makeatletter
-\bidi@patchcmd{\@Abjad}{آ}{الف}
+\bidi@patchcmd{\@Abjad}{الف}{آ}
 {\typeout{Succeeded in changing `آ` into `الف`}}
 {\typeout{Failed in changing `آ` into `الف`}}
 \makeatother
@@ -54,9 +58,24 @@
 \newcommand{\acol}{p{2.10cm}}
 \newcommand{\tcol}{p{1.20cm}}
 
-% Algorithms
+% Algorithms and its TOC
+\renewcommand{\algorithmcfname}{الگوریتم}
+\renewcommand{\listalgorithmcfname}{فهرست الگوریتم‌ها}
 \theoremstyle{definition} 
 \newtheorem{algo}{الگوریتم}[chapter]
+
+%\newcommand{\listalgos}{فهرست الگوریتم‌ها}
+%\newlistof{algorithms}{alogs}{\listalgos}
+%
+%% an enhanced version of \textbf that adds an entry to list of defs
+%\let\realtextbf\textbf
+%\newcommand\answertextbf[1]{%
+%	\addcontentsline{algos}{section}{\protect\numberline{\thedefinition}#1}%
+%	\realtextbf{#1}%
+%	\let\textbf\real\textbf% reset \textbf to normal
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Glossaries settings
 % Styles
@@ -192,9 +211,12 @@
 \include{taghdim}
 
 \pagenumbering{harfi}
+
+% Lists
 \tableofcontents
 \listoftables
 \listoffigures
+\listofalgorithms
 
 % Notations
 \include{notation}
