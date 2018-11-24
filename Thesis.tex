@@ -39,8 +39,13 @@
 \PersianAlphs
 
 \newcommand\notation[2]{#1\dotfill\lr{#2}\\}
-\renewcommand{\bibname}{مراجع}
 \SepMark{-}
+
+% Names of lists
+\renewcommand{\bibname}{مراجع}
+\renewcommand{\listfigurename}{فهرست شکل‌ها}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Folder that contains Figures
 \graphicspath{{figs/}}
@@ -50,6 +55,7 @@
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3} % To show subsubsections in TOC
 
+% Table settings
 % Space between rows of tables
 \renewcommand{\arraystretch}{1.5}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
@@ -57,6 +63,8 @@
 % Define size of columns of table
 \newcommand{\acol}{p{2.10cm}}
 \newcommand{\tcol}{p{1.20cm}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Algorithms and its TOC
 \renewcommand{\algorithmcfname}{الگوریتم}
@@ -71,22 +79,7 @@
 \end{minipage}
 }
 
-
-\theoremstyle{definition} 
-\newtheorem{algo}{الگوریتم}[chapter]
-
-%\newcommand{\listalgos}{فهرست الگوریتم‌ها}
-%\newlistof{algorithms}{alogs}{\listalgos}
-%
-%% an enhanced version of \textbf that adds an entry to list of defs
-%\let\realtextbf\textbf
-%\newcommand\answertextbf[1]{%
-%	\addcontentsline{algos}{section}{\protect\numberline{\thedefinition}#1}%
-%	\realtextbf{#1}%
-%	\let\textbf\real\textbf% reset \textbf to normal
-%}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Glossaries settings
 % Styles
@@ -194,8 +187,7 @@
 
 
 % end of glossaries settings
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\title{عنوان}
 %\author{میر}
