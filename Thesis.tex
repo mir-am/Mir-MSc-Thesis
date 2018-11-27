@@ -15,7 +15,7 @@
 \usepackage{enumitem}
 \usepackage[font={small}]{caption}
 \usepackage{fancyhdr}
-%\usepackage[subfigure]{tocloft}
+\usepackage[subfigure, titles]{tocloft}
 \usepackage[hidelinks]{hyperref}
 \usepackage[ruled, algochapter]{algorithm2e}
 %\usepackage{etoolbox}
@@ -38,7 +38,9 @@
 \makeatother
 \PersianAlphs
 
+% Table of content modification
 \newcommand\notation[2]{#1\dotfill\lr{#2}\\}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 \SepMark{-}
 
 % Names of lists
