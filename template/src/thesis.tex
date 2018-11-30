@@ -1,0 +1,118 @@
+% TeX template for writing thesis
+% Islamic Azad University (North Tehran Branch)
+% Auhtor of this template: Mir, A.
+% Nov 30, 2018
+% https://github.com/mir-am/tex-thesis
+
+\documentclass[10pt,a4paper]{report}
+
+% Packages
+% Uncomment a package if you want to use it.
+\usepackage[top=35mm, bottom=30mm, left=25mm, right=35mm]{geometry} % Page margins
+\usepackage{graphicx} % For inserting images into document
+\usepackage[final]{pdfpages} % For inserting PDF file
+\usepackage{amsfonts, amsmath, amssymb, amsthm} % Math symbols
+%\usepackage[nodisplayskipstretch]{setspace} % For vertical space between equations
+\usepackage[xindy, acronym, nonumberlist=true]{glossaries}
+\usepackage{subfig} % For side-by-side figures
+\usepackage{booktabs} % For tables
+\usepackage{threeparttable}
+\usepackage{rotating}
+\usepackage{footnote} % To insert a footnote in the table enviroment
+\usepackage{enumitem}
+\usepackage[font={small}]{caption}
+\usepackage{fancyhdr} % To insert sections titles in pages' headers
+\usepackage[subfigure, titles]{tocloft} % To customize Table of contents
+\usepackage[hidelinks]{hyperref} % To generate hyperlinks for sections, figures, etc.
+%\usepackage[ruled, algochapter]{algorithm2e} % To write algorithms and pseudo-code
+%\usepackage{etoolbox}
+
+% XePersian for writing Persion content
+% This package that should be loaded after above packages.
+\usepackage{xepersian} 
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+% Xepersian settings
+\settextfont[Scale=1.4]{B Lotus}
+\setlatintextfont[Scale=1]{Times New Roman}
+\setdigitfont[Scale=1.2]{XB Niloofar}
+
+% Definitions
+\include{misc/defs}
+
+%\title{}
+%\author{}
+
+% glossaries
+\input{glossary/mygloss}
+
+\begin{document}
+\baselineskip=0.9cm % Space between lines
+%\maketitle
+
+%Front page
+\include{title/frontpage}
+
+% Besm page
+\include{misc/besm}
+
+% Statement of originalty
+\include{misc/orgstat}
+
+% Research Morality
+\include{misc/manshor}
+
+\include{acknowledgement/taghdim}
+
+\pagenumbering{harfi}
+
+% Lists
+\tableofcontents
+\listoftables
+\listoffigures
+% If you have alogrithms in your thesis, uncomment following command.
+%\listofalgorithms
+
+% Lists customization
+\addtocontents{toc}{\textbf{عنوان}~\hfill\textbf{صفحه}\par}
+\addtocontents{lot}{\textbf{عنوان}~\hfill\textbf{صفحه}\par}
+\addtocontents{lof}{\textbf{عنوان}~\hfill\textbf{صفحه}\par}
+%\addtocontents{loa}{\textbf{عنوان}~\hfill\textbf{صفحه}\par} % For list of algorithms.
+
+% Notations
+% Uncomment this if you have list of notations that used throughout the thesis.
+\include{misc/notation}
+
+\include{abstract/abstract_fa}
+
+% Chapters
+\include{chapters/ch1}
+
+\include{chapters/ch2}
+
+\include{chapters/ch3}
+
+\include{chapters/ch4}
+
+\include{chapters/ch5}
+
+\include{chapters/ch6}
+
+% References
+\include{references/reflist}
+
+% Glossaries
+\printglossary
+\printabbreviation
+
+% Change lines space after glossary
+\baselineskip=0.9cm
+
+% English abstract
+\include{abstract/abstract_en}
+
+% English title page
+\include{title/en_title}
+
+\end{document}
