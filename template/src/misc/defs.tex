@@ -9,8 +9,11 @@
 \PersianAlphs
 
 % Table of content modification
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3} % To show subsubsections in TOC
 \newcommand\notation[2]{#1\dotfill\lr{#2}\\}
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+%\addtolength{\cftsecnumwidth}{10pt} % Solves overlapping numbers and sec titles
 \SepMark{-}
 
 % Names of lists
@@ -24,8 +27,6 @@
 
 %\everymath\expandafter{\the\everymath\PersianMathsDigits\SetMathsDigits}
 %\DefaultMathsDigits
-\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3} % To show subsubsections in TOC
 
 % Table settings
 % Space between rows of tables
