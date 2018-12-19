@@ -7,6 +7,9 @@ First of all, you need to install a TeX distribution on your system. I recommend
 
 [XePersian](https://ctan.org/pkg/xepersian?lang=en) package is used to typeset a Persian thesis in TeX. Moreover, this template can be compiled with only XeLaTex.
 
+### Fonts
+B Lotus and XB Niloofar fonts are required to compile this TeX template. These fonts are included in fonts folder.
+
 ## Compiling the TeX template
 ### Linux
 Run the following commands to compile TeX files and generate a PDF file.
