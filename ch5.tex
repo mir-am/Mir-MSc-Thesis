@@ -277,7 +277,8 @@ F_F = \frac{(N - 1)\chi^2_F}{N(k - 1) - \chi^2_F}
 \subsection{نحوه پیاده‌سازی و اجرای الگوریتم‌ها}\label{sec:5:3:1}
 نرم افزار  \lr{LightTwinSVM} برای اجرای روش \lr{TSVM} در بخش ‏\ref{sec:5:3} مورد استفاده قرار گرفته است. این نرم افزار شامل پیاده‌سازی ساده و سریع روش \lr{TSVM} می‌باشد که به عنوان بخشی از این پژوهش به طور رایگان در اختیار عموم قرار گرفته است\LTRfootnote{https://github.com/mir-am/LightTwinSVM}. روش \lr{RKNN-TSVM} و سایر روش‌ها در زبان برنامه‌نویسی پایتون نسخه \lr{3.5} پیاده‌سازی شده و همچنین الگوریتم \lr{clipDCD} و \lr{LDMDBA} در زبان برنامه‌نویسی \lr{C++} پیاده‌سازی شده است. تمامی آزمایش‌ها روی یک کامپیوتر شخصی با پردازنده \lr{Core i7 6700K}، سیستم عامل \lr{Ubuntu 16.04 LTS} و 32 گیگابایت حافظه انجام شده است. کتابخانه و نرم افزار‌های استفاده شده برای آزمایش روش \lr{RKNN-TSVM} را نشان می‌دهد. جدول \ref{tab:7} کتابخانه و نرم افزارهای استفاده شده برای آزمایش روش \lr{RKNN-TSVM} را نشان می‌دهد.
 
-
+% \footnote{\lr{GNU Compiler Collection}}
+% \footnote{\lr{https://pybind11.readthedocs.io/en/master/index.html}}
 \begin{table}[!h]
 	\small
 	\centering
@@ -290,8 +291,8 @@ F_F = \frac{(N - 1)\chi^2_F}{N(k - 1) - \chi^2_F}
 		\lr{NumPy} \cite{walt2011} & اعمال جبر خطی در پایتون مانند ضرب و معکوس ماتریس \\
 		\lr{SciPy} \cite{jones2014} & محاسبه فاصله و توابع آماری  \\
 		\lr{Scikit-learn} \cite{pedregosa2011} & یادگیری ماشین و ارزیابی دسته‌بندها  \\
-		\lr{GCC}\footnote{\lr{GNU Compiler Collection}} & کامپایلر برای زبان برنامه‌نویسی \lr{C++}   \\
-		\lr{Pybind11}\footnote{\lr{https://pybind11.readthedocs.io/en/master/index.html}} & اجرای کد \lr{C++} در پایتون  \\
+		\lr{GCC}\glsuseri{GCC} & کامپایلر برای زبان برنامه‌نویسی \lr{C++}   \\
+		\lr{Pybind11} & اجرای کد \lr{C++} در پایتون  \\
 	
 		\bottomrule
 	\end{tabular}
