@@ -2,8 +2,13 @@
 
 \thispagestyle{empty}
 
+\afterpage{
+\newgeometry{top=25mm, bottom=20mm, left=25mm, right=35mm}
+
+\centerline{\includegraphics[height=4cm]{logo.png}}
+
 \begin{center}
-	
+\vspace{0.5cm}
 	\begin{latin}
 		
 		{\LARGE \bf ISLAMIC AZAD UNIVERSITY}
@@ -28,8 +33,12 @@
 		{\Large By}
 		\\[.5cm]
 		{A. Mir}
-		\\[1cm]
+		\\[3cm]
 		Winter 2019
 		
 	\end{latin}
 \end{center}
+
+\clearpage
+\restoregeometry
+}

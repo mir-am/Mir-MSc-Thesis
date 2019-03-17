@@ -1,7 +1,11 @@
 \thispagestyle{empty}
 
+% Margin of cover page is different from other pages of thesis
+\afterpage{%
+\newgeometry{top=25mm, bottom=20mm, left=25mm, right=35mm}
+
 % Azad University logo
-\centerline{\includegraphics[height=5cm]{logo.png}}
+\centerline{\includegraphics[height=4cm]{logo.png}}
 
 \begin{center}
 \vspace{0.5cm}
@@ -9,41 +13,43 @@
 \textbf{دانشگاه آزاد اسلامی}
 \\[.2cm]
 \textbf{واحد تهران شمال}
-\\[0.5cm]
+\\[1cm]
 
 دانشکده مهندسی برق و کامپیوتر گروه مهندسی کامپیوتر
 \\[.5cm]
 پایان‌نامه برای دریافت درجه کارشناسی ارشد «\lr{M.Sc}»
 \\[.2cm]
 رشته مهندسی کامپیوتر، گرایش هوش مصنوعی
-\\[0.5cm]
+\\[1.5cm]
 
 {\Large
 \textbf{عنوان}
 }
-\\
-%[0.25cm]
+\\[0.25cm]
 مقاوم‌سازی دسته‌بند ماشین بردار پشتیبان دوقلو در برابر داده‌های نویزی
-\\[0.5cm]
+\\[1.5cm]
 
 {\Large
 	\textbf{استاد راهنما}
 }
-\\
+\\[0.25cm]
 جلال‌ا‌لدین نصیری
-\vskip 0.5cm
+\vskip 1.25cm
 
 {\Large
 	\textbf{استادان مشاور}
 }
-\\
+\\[0.25cm]
 سمیه فتاحی
-\vskip 0.5cm
+\vskip 1.25cm
 {\Large
 	\textbf{نگارش}
 }
-\\
+\\[0.25cm]
 سید امیرمحمود میر
-\vskip 0.5cm
+\vskip 3cm
 زمستان ۱۳۹۷
 \end{center}
+\clearpage
+\restoregeometry
+} %
